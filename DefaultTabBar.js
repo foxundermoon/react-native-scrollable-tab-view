@@ -38,6 +38,7 @@ const DefaultTabBar = createReactClass({
   renderTab(name, page, isTabActive, onPressHandler) {
     const { activeTextColor, inactiveTextColor, textStyle, } = this.props;
     const textColor = isTabActive ? activeTextColor : inactiveTextColor;
+    const textBgColor = isTabActive ?'#FF3F2D':'transparent';
     const fontWeight = isTabActive ? 'bold' : 'normal';
 
     return <Button
@@ -48,10 +49,13 @@ const DefaultTabBar = createReactClass({
       accessibilityTraits='button'
       onPress={() => onPressHandler(page)}
     >
-      <View style={[styles.tab, this.props.tabStyle, ]}>
-        <Text style={[{color: textColor, fontWeight, }, textStyle, ]}>
-          {name}
-        </Text>
+      <View style={[styles.tab, this.props.tabStyle,this.props.customTabStyle]}>
+        <View style={{marginTop:8,backgroundColor:textBgColor,width:55,height:28,borderRadius:14,justifyContent:'center',alignItems:'center'}}>
+          <Text style={[{color: textColor, fontWeight,backgroundColor:textBgColor}, textStyle, ]}>
+            {name}
+          </Text>
+        </View>
+        
       </View>
     </Button>;
   },
@@ -80,7 +84,7 @@ const DefaultTabBar = createReactClass({
         })}
         <Animated.View
           style={[
-            tabUnderlineStyle,
+            
             {
               transform: [
                 { translateX },
@@ -105,7 +109,7 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    borderWidth: 1,
+    // borderWidth: 1,
     borderTopWidth: 0,
     borderLeftWidth: 0,
     borderRightWidth: 0,
